@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:573123115564:ios:482ac7b13b1ba356fdaf89",
-  "FIREBASE_PROJECT_ID": "mukti-system",
-  "GCM_SENDER_ID": "573123115564"
+  "GOOGLE_APP_ID": "1:366516581058:ios:7833a5a39fbb8a4cea415b",
+  "FIREBASE_PROJECT_ID": "flutter-stock-app",
+  "GCM_SENDER_ID": "366516581058"
 }

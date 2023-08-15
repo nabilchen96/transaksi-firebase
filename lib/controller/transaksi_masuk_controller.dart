@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_new_app_3/model/transaksi_masuk_model.dart';
 
 class TransaksiMasukController {
+
     final CollectionReference _TransaksiMasukCollection =
         FirebaseFirestore.instance.collection('transaksi_masuk');
 

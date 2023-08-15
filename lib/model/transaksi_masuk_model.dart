@@ -39,7 +39,7 @@ class TransaksiMasukModel {
     return {
       'id': id,
       'kode': kode_barang,
-      'nama': no_faktur,
+      'no_faktur': no_faktur,
       'quantity': quantity,
       'harga': harga,
       'tgl_masuk': tgl_masuk,

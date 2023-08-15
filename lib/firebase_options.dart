@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCvuwiRjPM-Bue49jq1euzUW5LNMfI3RKQ',
-    appId: '1:573123115564:web:ec50ca95747a026ffdaf89',
-    messagingSenderId: '573123115564',
-    projectId: 'mukti-system',
-    authDomain: 'mukti-system.firebaseapp.com',
-    storageBucket: 'mukti-system.appspot.com',
+    apiKey: 'AIzaSyD6_qROB6sOwKn4EHnR0VxyaXqnk7fzuQE',
+    appId: '1:366516581058:web:266a9f2fc52e5dd2ea415b',
+    messagingSenderId: '366516581058',
+    projectId: 'flutter-stock-app',
+    authDomain: 'flutter-stock-app.firebaseapp.com',
+    storageBucket: 'flutter-stock-app.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAMmjjWOUjz0epXSLoaMdGZIwii4TcJTHY',
-    appId: '1:573123115564:android:e3499596c44f9963fdaf89',
-    messagingSenderId: '573123115564',
-    projectId: 'mukti-system',
-    storageBucket: 'mukti-system.appspot.com',
+    apiKey: 'AIzaSyC-ilOAqqgYJKtOxDcWfQWztvM_IxW9R-A',
+    appId: '1:366516581058:android:17702006e93de02eea415b',
+    messagingSenderId: '366516581058',
+    projectId: 'flutter-stock-app',
+    storageBucket: 'flutter-stock-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBMQMP6VtItNfich6HN3CVyC3Mlry6RBN0',
-    appId: '1:573123115564:ios:482ac7b13b1ba356fdaf89',
-    messagingSenderId: '573123115564',
-    projectId: 'mukti-system',
-    storageBucket: 'mukti-system.appspot.com',
-    iosClientId: '573123115564-0dp552nafjk0g602jvaa02k9p432ss2i.apps.googleusercontent.com',
+    apiKey: 'AIzaSyADs2KtLzScpYS4RY4eyh6B2j0UJOhu_2s',
+    appId: '1:366516581058:ios:7833a5a39fbb8a4cea415b',
+    messagingSenderId: '366516581058',
+    projectId: 'flutter-stock-app',
+    storageBucket: 'flutter-stock-app.appspot.com',
+    iosClientId: '366516581058-kip3t9ejc0d1i1q2i64e3ncdchi9ut6c.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterNewApp3',
   );
 }
