@@ -35,7 +35,7 @@ class BarangListPage extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 1,
                     mainAxisSpacing: 1,
-                    childAspectRatio: 0.71,
+                    childAspectRatio: 0.81,
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -68,8 +68,9 @@ class BarangListPage extends StatelessWidget {
                               height: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
@@ -82,7 +83,10 @@ class BarangListPage extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 8, left: 8, right: 8),
+                                top: 8,
+                                left: 8,
+                                right: 8,
+                              ),
                               child: Expanded(
                                 child: Text(
                                   barangs[index].nama,

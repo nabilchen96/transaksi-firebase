@@ -61,8 +61,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Master',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: 'Transaksi',
+            icon: Icon(Icons.input),
+            label: 'Masuk',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.output),
+            label: 'Keluar',
           ),
         ],
       )

@@ -45,17 +45,36 @@ class TransaksiListPage extends StatelessWidget {
                         ),
                         subtitle: Text(
                           'Tanggal Transaksi: ${DateFormat('dd-MM-yyyy').format(transaksi_masuk[index].tgl_masuk)}\n'
-                          'Total: Rp ${NumberFormat('###,###').format(transaksi_masuk[index].total)}',
+                          'Total: Rp ${NumberFormat('###,###').format(transaksi_masuk[index].grand_total)}',
+                          // 'Total: Rp ${transaksi_masuk[index].grand_total}',
                         ),
-                        trailing: Column(
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text('Lihat'),
-                            SizedBox(
-                              height: 5,
+                            Column(
+                              children: [
+                                // const Text('Lihat'),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.remove_red_eye_rounded,
+                                  size: 30,
+                                ),
+                              ],
                             ),
-                            Icon(
-                              Icons.remove_red_eye_rounded,
-                              size: 30,
+                            SizedBox(width: 15,),
+                            Column(
+                              children: [
+                                // const Text('Hapus'),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.delete,
+                                  size: 30,
+                                ),
+                              ],
                             ),
                           ],
                         ),

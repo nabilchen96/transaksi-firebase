@@ -2,49 +2,44 @@
 
 class TransaksiMasukModel {
   String? id;
-  String kode_barang;
   String no_faktur;
   DateTime tgl_masuk;
-  int quantity;
-  int harga;
-  String kemasan;
-  int total;
+  String nama_pembeli;
+  String alamat;
+  String nomor_telpon;
+  int grand_total;
 
   TransaksiMasukModel({
     this.id,
-    required this.kode_barang,
     required this.no_faktur,
     required this.tgl_masuk,
-    required this.quantity,
-    required this.harga,
-    required this.kemasan,
-    required this.total,
+    required this.nama_pembeli, 
+    required this.alamat, 
+    required this.nomor_telpon, 
+    required this.grand_total
   });
 
   factory TransaksiMasukModel.fromMap(Map<String, dynamic> map, id) {
     return TransaksiMasukModel(
       id: id,
-      kode_barang: map['kode_barang'].toString(),
       no_faktur: map['no_faktur'].toString(),
       tgl_masuk: map['tgl_masuk'].toDate(),
-      quantity: map['quantity'],
-      harga: int.parse(map['harga'].toString()),
-      kemasan: map['kemasan'],
-      total: map['total']
+      nama_pembeli: map['nama_pembeli'].toString(), 
+      alamat: map['alamat'].toString(), 
+      nomor_telpon: map['nomor_telpon'].toString(), 
+      grand_total: int.parse(map['grand_total'].toString()),
     );
   }
 
   // Konversi dari BarangModel ke Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'kode': kode_barang,
       'no_faktur': no_faktur,
-      'quantity': quantity,
-      'harga': harga,
       'tgl_masuk': tgl_masuk,
-      'kemasan': kemasan,
-      'total': total
+      'nama_pembeli': nama_pembeli, 
+      'alamat': alamat, 
+      'nomor_telpon': nomor_telpon, 
+      'grand_total': grand_total
     };
   }
 }

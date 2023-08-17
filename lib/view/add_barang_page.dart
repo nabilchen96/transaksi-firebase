@@ -151,6 +151,12 @@ class _AddBarangPageState extends State<AddBarangPage> {
                 decoration: InputDecoration(labelText: 'Keterangan'),
                 onChanged: (value) => _keterangan = value,
                 maxLines: 5,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Keterangan harus diisi';
+                  }
+                  return null;
+                },
               ),
 
               SizedBox(height: 16),
@@ -182,11 +188,13 @@ class _AddBarangPageState extends State<AddBarangPage> {
                 child: Text('Pilih Gambar'),
               ),
               ElevatedButton(
-                onPressed: _isUploading
-                    ? null // Jika proses upload sedang berjalan, nonaktifkan tombol Simpan
-                    : () {
-                        _uploadImage();
-                      },
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    if (_isUploading != null) {
+                      _uploadImage();
+                    }
+                  }
+                },
                 child: _isUploading
                     ? CircularProgressIndicator() // Tampilkan CircularProgressIndicator saat proses upload berjalan
                     : Text('Simpan'),
