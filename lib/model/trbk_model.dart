@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-class TransaksiMasukModel {
+class TrbkModel {
   String? id;
   String no_faktur;
   DateTime tgl_masuk;
@@ -9,7 +9,7 @@ class TransaksiMasukModel {
   String nomor_telpon;
   int grand_total;
 
-  TransaksiMasukModel({
+  TrbkModel({
     this.id,
     required this.no_faktur,
     required this.tgl_masuk,
@@ -19,8 +19,8 @@ class TransaksiMasukModel {
     required this.grand_total
   });
 
-  factory TransaksiMasukModel.fromMap(Map<String, dynamic> map, id) {
-    return TransaksiMasukModel(
+  factory TrbkModel.fromMap(Map<String, dynamic> map, id) {
+    return TrbkModel(
       id: id,
       no_faktur: map['no_faktur'].toString(),
       tgl_masuk: map['tgl_masuk'].toDate(),

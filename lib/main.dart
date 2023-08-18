@@ -3,7 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/view/barang_list_page.dart';
-import 'package:flutter_new_app_3/view/transaksi_list_page.dart';
+import 'package:flutter_new_app_3/view/trbk_list_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,47 +29,41 @@ class MyApp extends StatelessWidget {
 }
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({ Key? key }) : super(key: key);
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-
   int _currentIndex = 0;
-  final List _screens = [
-    BarangListPage(),
-    TransaksiListPage()
-  ];
+  final List _screens = [BarangListPage(), TransaksiListPage()];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (int index){
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.rocket),
-            label: 'Master',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.input),
-            label: 'Masuk',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.output),
-            label: 'Keluar',
-          ),
-        ],
-      )
-    );
+        body: _screens[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.rocket),
+              label: 'Master',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.output),
+              label: ''
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.input),
+              label: 'Keluar',
+            ),
+          ],
+        ));
   }
 }

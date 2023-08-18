@@ -4,29 +4,30 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/barang_controller.dart';
-import 'package:flutter_new_app_3/controller/detail_transaksi_controller.dart';
-import 'package:flutter_new_app_3/controller/transaksi_masuk_controller.dart';
+import 'package:flutter_new_app_3/controller/detail_trbk_controller.dart';
+import 'package:flutter_new_app_3/controller/trbk_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
-import 'package:flutter_new_app_3/model/detail_transaksi_model.dart';
+import 'package:flutter_new_app_3/model/detail_trbk_model.dart';
 import 'package:flutter_new_app_3/view/barang_list_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl/intl.dart';
 
-import '../model/transaksi_masuk_model.dart';
+import '../model/trbk_model.dart';
 
-class AddTransaksiMasukPage extends StatefulWidget {
+class AddTrbkPage extends StatefulWidget {
   @override
-  _AddTransaksiMasukPageState createState() => _AddTransaksiMasukPageState();
+  _AddTrbkPageState createState() => _AddTrbkPageState();
 }
 
-class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
+class _AddTrbkPageState extends State<AddTrbkPage> {
   //variabel
   BarangController barangController = BarangController();
-  TransaksiMasukController transaksiMasukController =
-      TransaksiMasukController();
-  DetailTransaksiMasukController detailTransaksiMasukController =
-      DetailTransaksiMasukController();
+  TrbkController trbkController =
+      TrbkController();
+
+  DetailTrbkController detailTrbkController =
+      DetailTrbkController();
 
   DateTime tanggalPilihan = DateTime.now();
   BarangModel? barangPilihan;
@@ -45,7 +46,7 @@ class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
   TextEditingController grandTotalController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
 
-  List<DetailTransaksiModel> detailTransaksiModel = [];
+  List<DetailTrbkModel> detailTransaksiModel = [];
 
   Future<void> pilihTanggal(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -85,7 +86,7 @@ class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
       //kirim data transaksi barang masuk
       DateTime tglMasuk = DateFormat('dd-MM-yyyy').parse(dateController.text);
 
-      TransaksiMasukModel newTransaksi = TransaksiMasukModel(
+      TrbkModel newTransaksi = TrbkModel(
         no_faktur: fakturController.text,
         tgl_masuk: tglMasuk,
         alamat: alamatController.text,
@@ -94,10 +95,10 @@ class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
         nomor_telpon: nomorTelponController.text,
       );
 
-      await transaksiMasukController.addTransaksiMasuk(newTransaksi);
+      await trbkController.addTrbk(newTransaksi);
 
       //kirim data detail transaksi barang masuk
-      await detailTransaksiMasukController.addDetailTransaksiMasuk(detailTransaksiModel);
+      await detailTrbkController.addDetailTrbk(detailTransaksiModel);
 
       setState(() {
         _isUploading = false;
@@ -280,7 +281,7 @@ class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
                       hargaBarang! * int.parse(jumlahController.text);
 
                   detailTransaksiModel.add(
-                    DetailTransaksiModel(
+                    DetailTrbkModel(
                       id: '',
                       kode_barang: kodeBarang!,
                       jumlah: int.parse(jumlahController.text),
@@ -345,7 +346,7 @@ class _AddTransaksiMasukPageState extends State<AddTransaksiMasukPage> {
               style: TextStyle(fontSize: 30),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Anda Harus Memilih Minimal 1 Item';
+                  return 'Grand Total Tidak Boleh Kosong, Anda Harus Memilih Minimal 1 Item';
                 }
                 return null;
               },

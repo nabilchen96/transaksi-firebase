@@ -64,22 +64,24 @@ class BarangListPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 120,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    barangs[index]
-                                        .gambar, // Ganti dengan URL gambar Anda
+                            Flexible(
+                              child: Container(
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      barangs[index]
+                                          .gambar, // Ganti dengan URL gambar Anda
+                                    ),
                                   ),
                                 ),
+                                width: MediaQuery.of(context).size.width,
                               ),
-                              width: MediaQuery.of(context).size.width,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -100,7 +102,7 @@ class BarangListPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                              padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment
                                     .spaceBetween, // Menampilkan tombol di sebelah kanan
@@ -115,7 +117,7 @@ class BarangListPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment
                                     .spaceBetween, // Menampilkan tombol di sebelah kanan
@@ -129,6 +131,7 @@ class BarangListPage extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            SizedBox(height: 10,)
                           ],
                         ),
                       ),

@@ -1,4 +1,4 @@
-class DetailTransaksiModel {
+class DetailTrbkModel {
   String? id;
   String kode_barang;
   int jumlah;
@@ -6,7 +6,7 @@ class DetailTransaksiModel {
   int total_harga;
   String nama;
 
-  DetailTransaksiModel({
+  DetailTrbkModel({
     this.id,
     required this.kode_barang, 
     required this.jumlah, 
@@ -15,8 +15,8 @@ class DetailTransaksiModel {
     required this.nama
   });
 
-  factory DetailTransaksiModel.fromMap(Map<String, dynamic> map, id) {
-    return DetailTransaksiModel(
+  factory DetailTrbkModel.fromMap(Map<String, dynamic> map, id) {
+    return DetailTrbkModel(
       id: id, 
       kode_barang: map['kode_barang'].toString(),
       jumlah: int.parse(map['jumlah'].toString()), 

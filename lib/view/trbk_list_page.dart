@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, use_key_in_widget_constructors, unnecessary_string_interpolations, unused_local_variable, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, use_key_in_widget_constructors, unnecessary_string_interpolations, unused_local_variable, prefer_const_literals_to_create_immutables, unused_import, non_constant_identifier_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/barang_controller.dart';
-import 'package:flutter_new_app_3/controller/transaksi_masuk_controller.dart';
+import 'package:flutter_new_app_3/controller/trbk_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
-import 'package:flutter_new_app_3/model/transaksi_masuk_model.dart';
+import 'package:flutter_new_app_3/model/trbk_model.dart';
 import 'package:flutter_new_app_3/view/add_barang_page.dart';
 import 'package:flutter_new_app_3/view/add_transaksi_masuk_page.dart';
 import 'package:flutter_new_app_3/widget/barang_list_tile.dart';
@@ -13,8 +13,8 @@ import 'package:intl/intl.dart';
 import 'edit_barang_page.dart';
 
 class TransaksiListPage extends StatelessWidget {
-  final TransaksiMasukController transaksiMasukController =
-      TransaksiMasukController();
+  final TrbkController trbkController =
+      TrbkController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ class TransaksiListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Transaksi Barang'),
       ),
-      body: StreamBuilder<List<TransaksiMasukModel>>(
-        stream: transaksiMasukController.getTransaksiMasuks(),
+      body: StreamBuilder<List<TrbkModel>>(
+        stream: trbkController.getTrbks(),
         builder: (context, snapshot) {
           print('tes: ${snapshot}');
           if (snapshot.hasData) {
-            List<TransaksiMasukModel> transaksi_masuk = snapshot.data!;
+            List<TrbkModel> transaksi_masuk = snapshot.data!;
             return ListView.builder(
                 itemCount: transaksi_masuk.length,
                 itemBuilder: (context, index) {
@@ -45,36 +45,23 @@ class TransaksiListPage extends StatelessWidget {
                         ),
                         subtitle: Text(
                           'Tanggal Transaksi: ${DateFormat('dd-MM-yyyy').format(transaksi_masuk[index].tgl_masuk)}\n'
-                          'Total: Rp ${NumberFormat('###,###').format(transaksi_masuk[index].grand_total)}',
+                          'Grand Total: Rp ${NumberFormat('###,###').format(transaksi_masuk[index].grand_total)}',
                           // 'Total: Rp ${transaksi_masuk[index].grand_total}',
                         ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
+                        trailing: Column(
                           children: [
-                            Column(
-                              children: [
-                                // const Text('Lihat'),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Icon(
-                                  Icons.remove_red_eye_rounded,
-                                  size: 30,
-                                ),
-                              ],
+                            const Text('Lihat'),
+                            SizedBox(
+                              height: 10,
                             ),
-                            SizedBox(width: 15,),
-                            Column(
-                              children: [
-                                // const Text('Hapus'),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Icon(
-                                  Icons.delete,
-                                  size: 30,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: (){
+                                
+                              },
+                              child: Icon(
+                                Icons.remove_red_eye_rounded,
+                                size: 30,
+                              ),
                             ),
                           ],
                         ),
@@ -95,7 +82,7 @@ class TransaksiListPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddTransaksiMasukPage(),
+              builder: (context) => AddTrbkPage(),
             ),
           );
         },
