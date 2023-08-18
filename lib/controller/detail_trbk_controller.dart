@@ -5,7 +5,7 @@ import 'package:flutter_new_app_3/model/detail_trbk_model.dart';
 
 class DetailTrbkController {
   final CollectionReference _DetailTrbkCollection =
-      FirebaseFirestore.instance.collection('detail_transaksi_masuk');
+      FirebaseFirestore.instance.collection('detail_trbk');
 
   //menambahkan data TransaksiMasuk
   Future<void> addDetailTrbk(

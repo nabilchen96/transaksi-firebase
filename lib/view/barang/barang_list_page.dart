@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/barang_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
-import 'package:flutter_new_app_3/view/add_barang_page.dart';
+import 'package:flutter_new_app_3/view/barang/add_barang_page.dart';
 import 'package:flutter_new_app_3/widget/barang_list_tile.dart';
 import 'package:intl/intl.dart';
 
@@ -49,6 +49,7 @@ class BarangListPage extends StatelessWidget {
                               nama: barangs[index].nama,
                               stok: barangs[index].stok,
                               harga: barangs[index].harga,
+                              harga_jual: barangs[index].harga_jual,
                               keterangan: barangs[index].keterangan,
                               kode: barangs[index].kode,
                               gambar: barangs[index].gambar,
@@ -93,7 +94,7 @@ class BarangListPage extends StatelessWidget {
                                 child: Text(
                                   barangs[index].nama,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 2,
@@ -108,10 +109,7 @@ class BarangListPage extends StatelessWidget {
                                     .spaceBetween, // Menampilkan tombol di sebelah kanan
                                 children: [
                                   Text(
-                                    'Rp. ${NumberFormat('###,###').format(barangs[index].harga)}',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    'Rp. ${NumberFormat('###,###').format(barangs[index].harga_jual)}',
                                   ),
                                 ],
                               ),
@@ -124,14 +122,13 @@ class BarangListPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Stok: ${barangs[index].stok}',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10,)
+                            SizedBox(
+                              height: 10,
+                            )
                           ],
                         ),
                       ),

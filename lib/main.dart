@@ -2,8 +2,9 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_new_app_3/view/barang_list_page.dart';
-import 'package:flutter_new_app_3/view/trbk_list_page.dart';
+import 'package:flutter_new_app_3/view/barang/barang_list_page.dart';
+import 'package:flutter_new_app_3/view/trbk/trbk_list_page.dart';
+import 'package:flutter_new_app_3/view/trbm/trbm_list_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -37,7 +38,11 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
-  final List _screens = [BarangListPage(), TransaksiListPage()];
+  final List _screens = [
+    BarangListPage(),
+    TrbkListPage(),
+    TrbmListPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +61,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: 'Master',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.output),
-              label: ''
+              icon: Icon(Icons.arrow_circle_up),
+              label: 'Barang Keluar',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.input),
-              label: 'Keluar',
+              icon: Icon(Icons.arrow_circle_down),
+              label: 'Barang Masuk',
             ),
           ],
         ));

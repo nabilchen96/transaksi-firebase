@@ -5,6 +5,7 @@ class BarangModel {
   String gambar;
   int stok;
   int harga;
+  int harga_jual;
   String keterangan;
 
   BarangModel({
@@ -14,6 +15,7 @@ class BarangModel {
     required this.gambar,
     required this.stok,
     required this.harga,
+    required this.harga_jual,
     required this.keterangan,
   });
 
@@ -25,6 +27,7 @@ class BarangModel {
       gambar: map['gambar'],
       stok: map['stok'],
       harga: map['harga'],
+      harga_jual: map['harga_jual'],
       keterangan: map['keterangan'],
     );
   }
@@ -38,6 +41,7 @@ class BarangModel {
       'gambar': gambar,
       'stok': stok,
       'harga': harga,
+      'harga_jual': harga_jual,
       'keterangan': keterangan,
     };
   }

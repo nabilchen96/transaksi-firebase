@@ -5,14 +5,14 @@ import 'package:flutter_new_app_3/controller/barang_controller.dart';
 import 'package:flutter_new_app_3/controller/trbk_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
 import 'package:flutter_new_app_3/model/trbk_model.dart';
-import 'package:flutter_new_app_3/view/add_barang_page.dart';
-import 'package:flutter_new_app_3/view/add_transaksi_masuk_page.dart';
+import 'package:flutter_new_app_3/view/barang/add_barang_page.dart';
+import 'package:flutter_new_app_3/view/trbk/add_trbk_page.dart';
 import 'package:flutter_new_app_3/widget/barang_list_tile.dart';
 import 'package:intl/intl.dart';
 
-import 'edit_barang_page.dart';
+import '../barang/edit_barang_page.dart';
 
-class TransaksiListPage extends StatelessWidget {
+class TrbkListPage extends StatelessWidget {
   final TrbkController trbkController =
       TrbkController();
 
@@ -20,7 +20,7 @@ class TransaksiListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transaksi Barang'),
+        title: const Text('Transaksi Barang Keluar'),
       ),
       body: StreamBuilder<List<TrbkModel>>(
         stream: trbkController.getTrbks(),
