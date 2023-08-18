@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields, unnecessary_null_comparison
 
 import 'dart:io';
 
@@ -30,21 +30,28 @@ class _AddBarangPageState extends State<AddBarangPage> {
   int? _harga_jual;
   String? _keterangan;
 
+  //method untuk mengambil gambar dari media, media
+  //ImageSource media adalah parameter yang dimasukan saat method ini dipanggil
+  //anda dapat memilih ImageSource dari gallery atau dari camera
   Future<void> _pickImage(ImageSource media) async {
     final pickedFile = await _imagePicker.pickImage(
       source: media,
     );
 
+    //isi variabel _image dengan gambar yang dipilih
     setState(() {
       if (!mounted) return;
       _image = File(pickedFile!.path);
     });
   }
 
-  Future<void> _uploadImage() async {
+  //method untuk mengirim data ke firebase
+  Future<void> _sendImage() async {
     if (_image == null) return;
 
     try {
+      //jika tombol kirim ditekan maka ubah variabel _isUpload menjadi true
+      //jika variabel _isUpload true anda bisa menampilkan progress indicator
       setState(() {
         _isUploading = true;
       });
@@ -59,7 +66,7 @@ class _AddBarangPageState extends State<AddBarangPage> {
       // Dapatkan URL gambar yang telah diunggah
       String downloadURL = await storageSnapshot.ref.getDownloadURL();
 
-      // Simpan data barang dengan URL gambar ke Firestore
+      // Masukkan data yang sudah disiapkan ke dalam BarangModel
       BarangModel newBarang = BarangModel(
         kode: _kode!,
         nama: _nama!,
@@ -70,19 +77,19 @@ class _AddBarangPageState extends State<AddBarangPage> {
         keterangan: _keterangan!,
       );
 
-      print(newBarang);
-      print('object');
-
+      //addBarang adalah method untuk menambah barang ke firebase
       await barangController.addBarang(newBarang);
 
       setState(() {
         _isUploading = false;
       });
 
+      //kembali ke halaman sebelumnya
       Navigator.pop(context);
     } catch (e) {
+
+      //jika terjadi error, error dapat dilihat di terminal
       print('Error uploading image: $e');
-      // Tambahkan handling error sesuai kebutuhan
 
       setState(() {
         _isUploading = false;
@@ -102,7 +109,6 @@ class _AddBarangPageState extends State<AddBarangPage> {
           key: _formKey,
           child: ListView(
             children: [
-              // ... Form fields lainnya
               TextFormField(
                 decoration: InputDecoration(labelText: 'Kode Barang'),
                 onChanged: (value) => _kode = value,
@@ -182,7 +188,7 @@ class _AddBarangPageState extends State<AddBarangPage> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 10), //berfungsi untuk menambah spasi
 
               _image != null
                   ? Image.file(
@@ -190,6 +196,8 @@ class _AddBarangPageState extends State<AddBarangPage> {
                       File(_image!.path),
                       height: 200,
                       fit: BoxFit.cover,
+                      
+                      //width dibuat menyesuaikan lebar smartphone apapun
                       width: MediaQuery.of(context).size.width,
                     )
                   : Placeholder(
@@ -205,7 +213,7 @@ class _AddBarangPageState extends State<AddBarangPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     if (_isUploading != null) {
-                      _uploadImage();
+                      _sendImage();
                     }
                   }
                 },

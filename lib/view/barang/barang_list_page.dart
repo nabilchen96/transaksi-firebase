@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/barang_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
 import 'package:flutter_new_app_3/view/barang/add_barang_page.dart';
-import 'package:flutter_new_app_3/widget/barang_list_tile.dart';
 import 'package:intl/intl.dart';
 
 import 'edit_barang_page.dart';
@@ -21,7 +20,6 @@ class BarangListPage extends StatelessWidget {
       body: StreamBuilder<List<BarangModel>>(
         stream: barangController.getBarangs(),
         builder: (context, snapshot) {
-          print('tes: ${snapshot}');
           if (snapshot.hasData) {
             List<BarangModel> barangs = snapshot.data!;
             return ListView(
@@ -32,17 +30,18 @@ class BarangListPage extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: barangs.length, //total jumlah barang
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1,
-                    childAspectRatio: 0.81,
+                    crossAxisCount: 2, //card yg ditampilkan dalam satu barus
+                    crossAxisSpacing: 1, //jarak antar card disampingnya
+                    mainAxisSpacing: 1, //jarak antar card di atas dan bawahnya
+                    childAspectRatio: 0.85,
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
-                          // DetailPage adalah halaman yang dituju
+                          // EditBarangPage adalah halaman yang dituju
+                          // kita membawa parameter untuk dikirim ke halaman EditBarangPage
                           MaterialPageRoute(
                             builder: (context) => EditBarangPage(
                               id: barangs[index].id.toString(),
@@ -104,26 +103,14 @@ class BarangListPage extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween, // Menampilkan tombol di sebelah kanan
-                                children: [
-                                  Text(
-                                    'Rp. ${NumberFormat('###,###').format(barangs[index].harga_jual)}',
-                                  ),
-                                ],
+                              child: Text(
+                                'Rp. ${NumberFormat('###,###').format(barangs[index].harga_jual)}',
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween, // Menampilkan tombol di sebelah kanan
-                                children: [
-                                  Text(
-                                    'Stok: ${barangs[index].stok}',
-                                  ),
-                                ],
+                              child: Text(
+                                'Stok: ${barangs[index].stok}',
                               ),
                             ),
                             SizedBox(

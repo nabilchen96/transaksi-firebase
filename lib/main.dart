@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BottomNavBar(),
+      debugShowCheckedModeBanner: false, //untuk mematikan debug banner
     );
   }
 }
@@ -39,9 +40,9 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
   final List _screens = [
-    BarangListPage(),
-    TrbkListPage(),
-    TrbmListPage(),
+    BarangListPage(), //halaman daftar barang
+    TrbkListPage(), //halaman daftar transaksi barang keluar
+    TrbmListPage(), //halaman daftar transaksi barang masuk
   ];
 
   @override
