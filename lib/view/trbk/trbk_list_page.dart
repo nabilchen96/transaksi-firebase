@@ -7,14 +7,14 @@ import 'package:flutter_new_app_3/model/barang_model.dart';
 import 'package:flutter_new_app_3/model/trbk_model.dart';
 import 'package:flutter_new_app_3/view/barang/add_barang_page.dart';
 import 'package:flutter_new_app_3/view/trbk/add_trbk_page.dart';
+import 'package:flutter_new_app_3/view/trbk/detail_trbk_page.dart';
 import 'package:flutter_new_app_3/widget/barang_list_tile.dart';
 import 'package:intl/intl.dart';
 
 import '../barang/edit_barang_page.dart';
 
 class TrbkListPage extends StatelessWidget {
-  final TrbkController trbkController =
-      TrbkController();
+  final TrbkController trbkController = TrbkController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class TrbkListPage extends StatelessWidget {
         builder: (context, snapshot) {
           print('tes: ${snapshot}');
           if (snapshot.hasData) {
-            List<TrbkModel> transaksi_masuk = snapshot.data!;
+            List<TrbkModel> trbk_keluar = snapshot.data!;
             return ListView.builder(
-                itemCount: transaksi_masuk.length,
+                itemCount: trbk_keluar.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -41,12 +41,11 @@ class TrbkListPage extends StatelessWidget {
                           right: 16,
                         ),
                         title: Text(
-                          'No Faktur: ' + transaksi_masuk[index].no_faktur,
+                          'No Faktur: ' + trbk_keluar[index].no_faktur,
                         ),
                         subtitle: Text(
-                          'Tanggal Transaksi: ${DateFormat('dd-MM-yyyy').format(transaksi_masuk[index].tgl_masuk)}\n'
-                          'Grand Total: Rp ${NumberFormat('###,###').format(transaksi_masuk[index].grand_total)}',
-                          // 'Total: Rp ${transaksi_masuk[index].grand_total}',
+                          'Tanggal Transaksi: ${DateFormat('dd-MM-yyyy').format(trbk_keluar[index].tgl_keluar)}\n'
+                          'Grand Total: Rp ${NumberFormat('###,###').format(trbk_keluar[index].grand_total)}',
                         ),
                         trailing: Column(
                           children: [
@@ -55,8 +54,15 @@ class TrbkListPage extends StatelessWidget {
                               height: 10,
                             ),
                             GestureDetector(
-                              onTap: (){
-                                
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailTrbkPage(
+                                      noFaktur: trbk_keluar[index].no_faktur
+                                    ),
+                                  ),
+                                );
                               },
                               child: Icon(
                                 Icons.remove_red_eye_rounded,

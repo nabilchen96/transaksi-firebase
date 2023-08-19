@@ -1,5 +1,6 @@
 class DetailTrbkModel {
   String? id;
+  String no_faktur;
   String kode_barang;
   int jumlah;
   int harga;
@@ -8,6 +9,7 @@ class DetailTrbkModel {
 
   DetailTrbkModel({
     this.id,
+    required this.no_faktur,
     required this.kode_barang, 
     required this.jumlah, 
     required this.harga, 
@@ -19,6 +21,7 @@ class DetailTrbkModel {
     return DetailTrbkModel(
       id: id, 
       kode_barang: map['kode_barang'].toString(),
+      no_faktur: map['no_faktur'].toString(),
       jumlah: int.parse(map['jumlah'].toString()), 
       harga: int.parse(map['harga'].toString()),
       total_harga: int.parse(map['total_harga'].toString()),
@@ -34,7 +37,8 @@ class DetailTrbkModel {
       'jumlah': jumlah, 
       'harga': harga, 
       'total_harga': total_harga, 
-      'nama': nama
+      'nama': nama, 
+      'no_faktur': no_faktur
     };
   }
 }

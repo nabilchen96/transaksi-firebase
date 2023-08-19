@@ -48,28 +48,29 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _screens[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (int index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.rocket),
-              label: 'Master',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_circle_up),
-              label: 'Barang Keluar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_circle_down),
-              label: 'Barang Masuk',
-            ),
-          ],
-        ));
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.rocket),
+            label: 'Master',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_circle_up),
+            label: 'Barang Keluar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_circle_down),
+            label: 'Barang Masuk',
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -3,7 +3,7 @@
 class TrbkModel {
   String? id;
   String no_faktur;
-  DateTime tgl_masuk;
+  DateTime tgl_keluar;
   String nama_pembeli;
   String alamat;
   String nomor_telpon;
@@ -12,7 +12,7 @@ class TrbkModel {
   TrbkModel({
     this.id,
     required this.no_faktur,
-    required this.tgl_masuk,
+    required this.tgl_keluar,
     required this.nama_pembeli, 
     required this.alamat, 
     required this.nomor_telpon, 
@@ -23,7 +23,7 @@ class TrbkModel {
     return TrbkModel(
       id: id,
       no_faktur: map['no_faktur'].toString(),
-      tgl_masuk: map['tgl_masuk'].toDate(),
+      tgl_keluar: map['tgl_keluar'].toDate(),
       nama_pembeli: map['nama_pembeli'].toString(), 
       alamat: map['alamat'].toString(), 
       nomor_telpon: map['nomor_telpon'].toString(), 
@@ -35,7 +35,7 @@ class TrbkModel {
   Map<String, dynamic> toMap() {
     return {
       'no_faktur': no_faktur,
-      'tgl_masuk': tgl_masuk,
+      'tgl_keluar': tgl_keluar,
       'nama_pembeli': nama_pembeli, 
       'alamat': alamat, 
       'nomor_telpon': nomor_telpon, 

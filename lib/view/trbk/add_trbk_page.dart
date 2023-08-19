@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields, non_constant_identifier_names, unrelated_type_equality_checks, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields, non_constant_identifier_names, unrelated_type_equality_checks, unnecessary_string_interpolations, unnecessary_null_comparison
 
 import 'dart:io';
 
@@ -84,11 +84,11 @@ class _AddTrbkPageState extends State<AddTrbkPage> {
       });
 
       //kirim data transaksi barang masuk
-      DateTime tglMasuk = DateFormat('dd-MM-yyyy').parse(dateController.text);
+      DateTime tglKeluar = DateFormat('dd-MM-yyyy').parse(dateController.text);
 
       TrbkModel newTransaksi = TrbkModel(
         no_faktur: fakturController.text,
-        tgl_masuk: tglMasuk,
+        tgl_keluar: tglKeluar,
         alamat: alamatController.text,
         grand_total: int.parse(grandTotalController.text.replaceAll(',', '')),
         nama_pembeli: namaController.text,
@@ -289,6 +289,7 @@ class _AddTrbkPageState extends State<AddTrbkPage> {
                       harga: hargaBarang!,
                       total_harga: totalHargaBarang!,
                       nama: namaBarang!,
+                      no_faktur: fakturController.text
                     ),
                   );
 
