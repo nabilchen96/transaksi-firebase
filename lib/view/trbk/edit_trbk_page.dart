@@ -1,28 +1,40 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields, non_constant_identifier_names, unrelated_type_equality_checks, unnecessary_string_interpolations, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field, unused_import, prefer_final_fields, non_constant_identifier_names, unrelated_type_equality_checks, unnecessary_string_interpolations, unnecessary_null_comparison, must_be_immutable
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/barang_controller.dart';
-import 'package:flutter_new_app_3/controller/detail_trbm_controller.dart';
-import 'package:flutter_new_app_3/controller/trbm_controller.dart';
+import 'package:flutter_new_app_3/controller/detail_trbk_controller.dart';
+import 'package:flutter_new_app_3/controller/trbk_controller.dart';
 import 'package:flutter_new_app_3/model/barang_model.dart';
-import 'package:flutter_new_app_3/model/detail_trbm_model.dart';
+import 'package:flutter_new_app_3/model/detail_trbk_model.dart';
+import 'package:flutter_new_app_3/view/barang/barang_list_page.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:flutter_new_app_3/model/trbm_model.dart';
 import 'package:intl/intl.dart';
 
-class AddTrbmPage extends StatefulWidget {
+import '../../model/trbk_model.dart';
+
+class EditTrbkPage extends StatefulWidget {
+
+  String no_faktur;
+  
+  EditTrbkPage({
+    required this.no_faktur
+  });
+
   @override
-  _AddTrbmPageState createState() => _AddTrbmPageState();
+  _EditTrbkPageState createState() => _EditTrbkPageState();
 }
 
-class _AddTrbmPageState extends State<AddTrbmPage> {
+class _EditTrbkPageState extends State<EditTrbkPage> {
   //variabel
   BarangController barangController = BarangController();
-  TrbmController trbmController = TrbmController();
+  TrbkController trbkController =
+      TrbkController();
 
-  DetailTrbmController detailTrbmController = DetailTrbmController();
+  DetailTrbkController detailTrbkController =
+      DetailTrbkController();
 
   DateTime tanggalPilihan = DateTime.now();
   BarangModel? barangPilihan;
@@ -40,9 +52,8 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
   TextEditingController jumlahController = TextEditingController();
   TextEditingController grandTotalController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
-  TextEditingController hargaController = TextEditingController();
 
-  List<DetailTrbmModel> detailTransaksiModel = [];
+  List<DetailTrbkModel> detailTransaksiModel = [];
 
   Future<void> pilihTanggal(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -80,22 +91,21 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
       });
 
       //kirim data transaksi barang masuk
-      DateTime tglMasuk = DateFormat('dd-MM-yyyy').parse(dateController.text);
+      DateTime tglKeluar = DateFormat('dd-MM-yyyy').parse(dateController.text);
 
-      TrbmModel newTransaksi = TrbmModel(
+      TrbkModel newTransaksi = TrbkModel(
         no_faktur: fakturController.text,
-        tgl_masuk: tglMasuk,
+        tgl_keluar: tglKeluar,
         alamat: alamatController.text,
         grand_total: int.parse(grandTotalController.text.replaceAll(',', '')),
-        nama_supplier: namaController.text,
+        nama_pembeli: namaController.text,
         nomor_telpon: nomorTelponController.text,
-        harga: int.parse(hargaController.text),
       );
 
-      await trbmController.addTrbm(newTransaksi);
+      await trbkController.addTrbk(newTransaksi);
 
       //kirim data detail transaksi barang masuk
-      await detailTrbmController.addDetailTrbm(detailTransaksiModel);
+      await detailTrbkController.addDetailTrbk(detailTransaksiModel);
 
       setState(() {
         _isUploading = false;
@@ -114,7 +124,7 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Transaksi Masuk'),
+        title: Text('Tambah Transaksi Keluar'),
       ),
       body: Form(
         key: _formKey,
@@ -156,12 +166,12 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
             ),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Nama Supplier',
+                labelText: 'Nama Pembeli',
               ),
               controller: namaController,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Nama Supplier harus diisi';
+                  return 'Nama Pembeli harus diisi';
                 }
                 return null;
               },
@@ -189,80 +199,68 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
                 return null;
               },
             ),
-            Container(
-              height: 80,
-              child: StreamBuilder<List<BarangModel>>(
-                stream: barangController.getBarangs(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<BarangModel> barangs = snapshot.data!;
-                    return DropdownButtonFormField<String>(
-                      value: barangPilihan != null &&
-                              barangs.contains(barangPilihan)
-                          ? barangPilihan!.kode
-                          : null,
-                      decoration: InputDecoration(
-                        labelText: 'Pilih Barang',
-                      ),
-                      items: barangs.map((barang) {
-                        String displayText = '${barang.kode} - ${barang.nama}';
-                        if (displayText.length > 37) {
-                          displayText = displayText.substring(0, 37);
-                        }
-                        return DropdownMenuItem<String>(
-                          value: barang.kode,
-                          child: Text(
-                            displayText,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (selectedBarangKode) {
-                        // Temukan objek barang yang sesuai berdasarkan kode yang dipilih
-                        BarangModel selectedBarang = barangs.firstWhere(
-                          (barang) => barang.kode == selectedBarangKode,
-                          orElse: () => BarangModel(
-                            kode: '',
-                            nama: '',
-                            harga: 0,
-                            harga_jual: 0,
-                            gambar: '',
-                            keterangan: '',
-                            stok: 0,
-                          ),
-                        );
-
-                        // Ambil data harga dan nama dari objek barang yang dipilih
-                        setState(() {
-                          namaBarang = selectedBarang.nama;
-                          hargaBarang = selectedBarang.harga_jual;
-                          kodeBarang = selectedBarang.kode;
-                          hargaController.text = hargaBarang.toString();
-                        });
-                      },
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
                   flex: 4,
                   child: Container(
-                    height: 70,
-                    child: TextFormField(
-                      controller: hargaController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Harga',
-                      ),
+                    height: 80,
+                    child: StreamBuilder<List<BarangModel>>(
+                      stream: barangController.getBarangs(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<BarangModel> barangs = snapshot.data!;
+                          return DropdownButtonFormField<String>(
+                            value: barangPilihan != null &&
+                                    barangs.contains(barangPilihan)
+                                ? barangPilihan!.kode
+                                : null,
+                            decoration: InputDecoration(
+                              labelText: 'Pilih Barang',
+                            ),
+                            items: barangs.map((barang) {
+                              String displayText =
+                                  '${barang.kode} - ${barang.nama}';
+                              if (displayText.length > 29) {
+                                displayText = displayText.substring(0, 29);
+                              }
+                              return DropdownMenuItem<String>(
+                                value: barang.kode,
+                                child: Text(
+                                  displayText,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (selectedBarangKode) {
+                              // Temukan objek barang yang sesuai berdasarkan kode yang dipilih
+                              BarangModel selectedBarang = barangs.firstWhere(
+                                (barang) => barang.kode == selectedBarangKode,
+                                orElse: () => BarangModel(
+                                  kode: '',
+                                  nama: '',
+                                  harga: 0,
+                                  harga_jual: 0,
+                                  gambar: '',
+                                  keterangan: '',
+                                  stok: 0,
+                                ),
+                              );
+
+                              // Ambil data harga dan nama dari objek barang yang dipilih
+                              namaBarang = selectedBarang.nama;
+                              hargaBarang = selectedBarang.harga_jual;
+                              kodeBarang = selectedBarang.kode;
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -270,7 +268,7 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
                   width: 8,
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Container(
                     height: 70,
                     child: TextFormField(
@@ -288,16 +286,17 @@ class _AddTrbmPageState extends State<AddTrbmPage> {
               onPressed: () {
                 setState(() {
                   totalHargaBarang =
-                      int.parse(hargaController.text)* int.parse(jumlahController.text);
+                      hargaBarang! * int.parse(jumlahController.text);
 
                   detailTransaksiModel.add(
-                    DetailTrbmModel(
+                    DetailTrbkModel(
                       id: '',
                       kode_barang: kodeBarang!,
                       jumlah: int.parse(jumlahController.text),
-                      harga: int.parse(hargaController.text),
+                      harga: hargaBarang!,
                       total_harga: totalHargaBarang!,
                       nama: namaBarang!,
+                      no_faktur: fakturController.text
                     ),
                   );
 

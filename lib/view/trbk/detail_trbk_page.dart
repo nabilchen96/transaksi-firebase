@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unused_local_variable
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unused_local_variable, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_new_app_3/controller/detail_trbk_controller.dart';
 import 'package:flutter_new_app_3/controller/trbk_controller.dart';
 import 'package:flutter_new_app_3/model/detail_trbk_model.dart';
 import 'package:flutter_new_app_3/model/trbk_model.dart';
+import 'package:flutter_new_app_3/view/trbk/edit_trbk_page.dart';
 import 'package:intl/intl.dart';
 
 class DetailTrbkPage extends StatefulWidget {
@@ -24,13 +25,9 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
 
   @override
   Widget build(BuildContext context) {
-    // setState(() {
-    //   detailTrbkController.showDetailTrbks(widget.noFaktur);
-    // });
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detail Transaksi Barang Keluar"),
+        title: Text("Barang Kerluar"),
       ),
       body: ListView(
         padding: EdgeInsets.only(
@@ -43,7 +40,9 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
             future: trbkController.showTrbks(widget.noFaktur),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator(); // Tampilkan indikator loading jika data masih dimuat
+                return Center(
+                  child: CircularProgressIndicator(),
+                ); // Tampilkan indikator loading jika data masih dimuat
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (!snapshot.hasData || snapshot.data == null) {
@@ -141,7 +140,9 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return CircularProgressIndicator(); // Tampilkan indikator loading jika data masih dimuat
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          ); // Tampilkan indikator loading jika data masih dimuat
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else if (!snapshot.hasData || snapshot.data == null) {
@@ -149,8 +150,6 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
                         } else {
                           List<DetailTrbkModel> dataList =
                               snapshot.data as List<DetailTrbkModel>;
-
-                          // List<DetailTrbkModel> dataList = snapshot.data!; 
 
                           return ListView.builder(
                             shrinkWrap: true,
@@ -171,6 +170,16 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
                           );
                         }
                       },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Grand Total'),
+                    Text(
+                      'Rp ${NumberFormat('###,###').format(trbk.grand_total)}',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
                     )
                   ],
                 );
@@ -183,7 +192,16 @@ class _DetailTrbkPageState extends State<DetailTrbkPage> {
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
-            _currentIndex = index;
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditTrbkPage(
+                    no_faktur: widget.noFaktur,
+                  ),
+                ),
+              );
+            } else {}
           });
         },
         items: [
