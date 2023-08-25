@@ -1,4 +1,4 @@
-# flutter_new_app_3
+# Aplikasi Transaksi Barang dengan Firebase
 
 A new Flutter project.
 
